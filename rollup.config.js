@@ -4,7 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import clear from 'rollup-plugin-clear'
 import screeps from 'rollup-plugin-screeps-world'
 import copy from 'rollup-plugin-copy';
-import { terser } from 'rollup-plugin-terser'
+import terser from '@rollup/plugin-terser'
 import yaml from 'yaml'
 import { readFileSync } from 'fs'
 
@@ -52,11 +52,11 @@ export default {
           ]
         }),
         resolve(),
+        typescript({ tsconfig: './tsconfig.json' }),
         commonjs({
             ignoreTryCatch: false
         }),
         shouldUglify && terser(),
-        typescript({ tsconfig: './tsconfig.json' }),
         screeps({ config: config, dryRun: !config }),
     ],
     /**
